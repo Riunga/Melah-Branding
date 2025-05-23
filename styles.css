@@ -353,3 +353,16 @@ body {
         padding: 0.4rem 0.8rem;
     }
 }
+
+.admin-link {
+    background: #ff3366;
+    color: white !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.admin-link:hover {
+    background: #e61e4d;
+    transform: translateY(-2px);
+}

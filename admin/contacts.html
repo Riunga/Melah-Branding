@@ -1,0 +1,148 @@
+<?php 
+require_once 'middleware/auth_check.php';
+require_once 'config/database.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Messages - Melah Branding</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="css/contacts.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <img src="../assets/images/logo.png" alt="Melah Branding Logo">
+            </div>
+            <nav class="admin-nav">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="quotes.html">Quote Requests</a>
+                <a href="contacts.html" class="active">Contact Messages</a>
+                <a href="settings.html">Settings</a>
+                <a href="logout.php" class="logout">Logout</a>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1>Contact Messages</h1>
+                <div class="admin-profile">
+                    <span class="admin-name">Admin User</span>
+                    <img src="../assets/images/admin/profile.jpg" alt="Admin Profile" class="admin-avatar">
+                </div>
+            </header>
+
+            <div class="messages-list">
+                <div class="messages-header">
+                    <div class="messages-stats">
+                        <div class="stat-box">
+                            <span class="stat-number" id="totalMessages">0</span>
+                            <span class="stat-label">Total Messages</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number" id="unreadMessages">0</span>
+                            <span class="stat-label">Unread</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number" id="todayMessages">0</span>
+                            <span class="stat-label">Today</span>
+                        </div>
+                    </div>
+                    <div class="messages-actions">
+                        <button class="action-btn" id="markAllRead">Mark All as Read</button>
+                        <button class="action-btn delete-btn" id="deleteSelected">Delete Selected</button>
+                    </div>
+                </div>
+
+                <div class="messages-filters">
+                    <div class="filter-group">
+                        <select id="statusFilter">
+                            <option value="all">All Messages</option>
+                            <option value="unread">Unread</option>
+                            <option value="read">Read</option>
+                            <option value="urgent">Urgent</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                        <input type="date" id="dateFilter">
+                        <input type="text" id="searchMessages" placeholder="Search messages...">
+                    </div>
+                    <div class="view-options">
+                        <button class="view-btn active" data-view="grid">Grid View</button>
+                        <button class="view-btn" data-view="list">List View</button>
+                    </div>
+                </div>
+
+                <div class="messages-grid">
+                    <!-- Message template -->
+                    <div class="message-card">
+                        <div class="message-checkbox">
+                            <input type="checkbox" class="message-select">
+                        </div>
+                        <div class="message-priority">
+                            <span class="priority-badge">Urgent</span>
+                        </div>
+                        <div class="message-header">
+                            <h3 class="sender-name">John Doe</h3>
+                            <span class="message-date">Jan 15, 2024</span>
+                        </div>
+                        <div class="message-content">
+                            <p class="sender-email">john@gmail.com</p>
+                            <p class="message-preview">Message content preview goes here...</p>
+                        </div>
+                        <div class="message-footer">
+                            <div class="message-tags">
+                                <span class="tag">Website</span>
+                                <span class="tag">Design</span>
+                            </div>
+                            <div class="message-actions">
+                                <button class="action-btn reply-btn">Reply</button>
+                                <button class="action-btn archive-btn">Archive</button>
+                                <button class="action-btn delete-btn">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pagination">
+                    <button class="page-btn" id="prevPage">Previous</button>
+                    <div class="page-numbers">
+                        <span class="current-page">1</span> of <span class="total-pages">10</span>
+                    </div>
+                    <button class="page-btn" id="nextPage">Next</button>
+                </div>
+            </div>
+
+            <!-- Message Reply Modal -->
+            <div class="modal" id="replyModal">
+                <div class="modal-content">
+                    <h2>Reply to Message</h2>
+                    <form id="replyForm">
+                        <div class="form-group">
+                            <label>To:</label>
+                            <input type="email" id="replyTo" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject:</label>
+                            <input type="text" id="replySubject">
+                        </div>
+                        <div class="form-group">
+                            <label>Message:</label>
+                            <textarea id="replyMessage" rows="5"></textarea>
+                        </div>
+                        <div class="modal-actions">
+                            <button type="button" class="cancel-btn" id="cancelReply">Cancel</button>
+                            <button type="submit" class="send-btn">Send Reply</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/contacts.js"></script>
+</body>
+</html>

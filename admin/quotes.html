@@ -1,0 +1,183 @@
+<?php 
+require_once 'middleware/auth_check.php';
+require_once 'config/database.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Requests - Melah Branding</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="css/quotes.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <img src="../assets/images/logo.png" alt="Melah Branding Logo">
+            </div>
+            <nav class="admin-nav">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="quotes.html" class="active">Quote Requests</a>
+                <a href="contacts.html">Contact Messages</a>
+                <a href="settings.html">Settings</a>
+                <a href="logout.php" class="logout">Logout</a>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1>Quote Requests</h1>
+                <div class="admin-profile">
+                    <span class="admin-name">Admin User</span>
+                    <img src="../assets/images/admin/profile.jpg" alt="Admin Profile" class="admin-avatar">
+                </div>
+            </header>
+
+            <div class="quotes-dashboard">
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <h3>New Requests</h3>
+                        <p class="stat-number">15</p>
+                        <span class="stat-trend positive">+25%</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pending Review</h3>
+                        <p class="stat-number">8</p>
+                        <span class="stat-trend">In Progress</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Approved</h3>
+                        <p class="stat-number">45</p>
+                        <span class="stat-trend positive">+12%</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Value</h3>
+                        <p class="stat-number">$12,450</p>
+                        <span class="stat-trend positive">+18%</span>
+                    </div>
+                </div>
+
+                <div class="quotes-filters">
+                    <div class="search-group">
+                        <input type="text" placeholder="Search quotes..." id="searchQuotes">
+                        <select id="statusFilter">
+                            <option value="all">All Status</option>
+                            <option value="new">New</option>
+                            <option value="pending">Pending</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                        <input type="date" id="dateFilter">
+                        <button class="filter-btn">Apply Filters</button>
+                    </div>
+                    <div class="bulk-actions">
+                        <button class="action-btn approve-selected">Approve Selected</button>
+                        <button class="action-btn reject-selected">Reject Selected</button>
+                        <button class="action-btn delete-selected">Delete Selected</button>
+                    </div>
+                </div>
+
+                <div class="quotes-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="selectAll"></th>
+                                <th>Date</th>
+                                <th>Client</th>
+                                <th>Service</th>
+                                <th>Budget</th>
+                                <th>Status</th>
+                                <th>Priority</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" class="quote-select"></td>
+                                <td>Jan 15, 2024</td>
+                                <td>
+                                    <div class="client-info">
+                                        <img src="../assets/images/client1.jpg" alt="Client">
+                                        <div>
+                                            <p class="client-name">Sarah Johnson</p>
+                                            <p class="client-email">sarah@example.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Brand Design</td>
+                                <td>$2,500</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td><span class="priority-badge high">High</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-btn" data-id="1">View</button>
+                                        <button class="approve-btn" data-id="1">Approve</button>
+                                        <button class="reject-btn" data-id="1">Reject</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- More quote rows here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <button id="prevPage">Previous</button>
+                    <div class="page-numbers">
+                        <span class="current-page">1</span> of <span class="total-pages">5</span>
+                    </div>
+                    <button id="nextPage">Next</button>
+                </div>
+            </div>
+
+            <!-- Quote Details Modal -->
+            <div class="modal" id="quoteModal">
+                <div class="modal-content">
+                    <h2>Quote Details</h2>
+                    <div class="quote-details">
+                        <div class="detail-group">
+                            <label>Client Information</label>
+                            <div class="client-details">
+                                <img src="../assets/images/client1.jpg" alt="Client">
+                                <div>
+                                    <h3>Sarah Johnson</h3>
+                                    <p>sarah@example.com</p>
+                                    <p>+1 234 567 8900</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-group">
+                            <label>Project Requirements</label>
+                            <p class="project-desc">Detailed project description here...</p>
+                        </div>
+                        <div class="detail-group">
+                            <label>Budget & Timeline</label>
+                            <div class="budget-timeline">
+                                <p>Budget: $2,500</p>
+                                <p>Timeline: 3 weeks</p>
+                            </div>
+                        </div>
+                        <div class="detail-group">
+                            <label>Attachments</label>
+                            <div class="attachments">
+                                <a href="#" class="attachment">brief.pdf</a>
+                                <a href="#" class="attachment">reference.jpg</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="cancel-btn">Close</button>
+                        <button class="approve-btn">Approve Quote</button>
+                        <button class="reject-btn">Reject Quote</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/quotes.js"></script>
+</body>
+</html>

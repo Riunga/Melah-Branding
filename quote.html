@@ -22,6 +22,7 @@
                 <li><a href="portfolio.html" class="nav-link">Our Portfolio</a></li>
                 <li><a href="about.html" class="nav-link">About Us</a></li>
                 <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                <li><a href="admin/login.html" class="nav-link admin-link">Admin</a></li>
             </ul>
         </nav>
     </header>
@@ -60,14 +61,22 @@
                     <label for="budget">Budget Range</label>
                     <select id="budget" name="budget" required>
                         <option value="">Select Budget Range</option>
-                        <option value="small">1,000 - 5,000</option>
-                        <option value="medium">5,000 - 10,000</option>
-                        <option value="large">10,000+</option>
+                        <option value="small">Ksh 1,000 - Ksh 5,000</option>
+                        <option value="medium">ksh 5,000 - Ksh 10,000</option>
+                        <option value="large">Ksh 10,000+</option>
                     </select>
                 </div>
                 <button type="submit" class="submit-button">Submit Quote Request</button>
             </form>
         </div>
     </section>
-</body>
+    <!-- Add before closing body tag -->
+        <script src="js/quote.js"></script>
+        <script>
+            // Initialize form validation
+            document.addEventListener('DOMContentLoaded', function() {
+                initQuoteForm();
+            });
+        </script>
+    </body>
 </html>
