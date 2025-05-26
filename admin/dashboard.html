@@ -26,7 +26,9 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
                 <a href="quotes.html">Quote Requests</a>
                 <a href="contacts.html">Contact Messages</a>
                 <a href="settings.html">Settings</a>
+<?php if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true): ?>
                 <a href="login.html" class="active">Login</a>
+<?php endif; ?>
                 <a href="../index.html" class="view-site">View Website</a>
                 <a href="logout.php" class="logout">Logout</a>
             </nav>

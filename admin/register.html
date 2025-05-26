@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Registration - Melah Branding</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="css/login.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+</head>
+<body class="login-body">
+    <div class="login-container">
+        <div class="login-box">
+            <img src="../assets/images/logo.png" alt="Melah Branding Logo" class="login-logo" />
+            <h2>Admin Registration</h2>
+            <form action="process/register.php" method="POST" class="login-form" id="registerForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required />
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required />
+                </div>
+                <button type="submit" class="login-button">Register</button>
+            </form>
+            <p class="login-link">
+                Already have an account? <a href="login.html">Login here</a>.
+            </p>
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('registerForm');
+        const errorMessage = document.getElementById('errorMessage');
+
+        form.addEventListener('submit', function (e) {
+            errorMessage.style.display = 'none';
+            if (form.password.value !== form.confirm_password.value) {
+                e.preventDefault();
+                errorMessage.textContent = 'Passwords do not match.';
+                errorMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

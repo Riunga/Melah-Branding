@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("UPDATE admin_users SET last_login = NOW() WHERE id = ?");
             $stmt->execute([$user['id']]);
 
-            header('Location: ../dashboard.html');
+            header('Location: dashboard.html');
             exit;
         } else {
             header('Location: ../login.html');
